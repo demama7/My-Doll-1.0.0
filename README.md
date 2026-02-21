@@ -4,6 +4,7 @@
 A small horror game that simulates a deadly virus taking over your computer  
 
 Warnings:
+  
 1: The game really won't exit your computer in any way unless you beat it  
 2: Not for the faint of heart!  
 3: Consider the mental and physical consequences on your computer  
