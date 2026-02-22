@@ -9,7 +9,7 @@ namespace appV1
         private static string title = "System Warning";
         public static int disqualifications = 0;
 
-        // ייבוא הפונקציה של ווינדוס לשינוי הגדרות מערכת
+       
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
 
@@ -17,7 +17,7 @@ namespace appV1
         private const int SPIF_UPDATEINIFILE = 0x01;
         private const int SPIF_SENDWININICHANGE = 0x02;
 
-        // פונקציה לשינוי רקע שולחן העבודה
+   
         public static void SetWallpaper(string path)
         {
             try
@@ -114,13 +114,9 @@ namespace appV1
                 Show("בו ניתן לך רק עונש קטן שתדע מי אני טוב טוב!");
                 try
                 {
-                    // 1. מציאת נתיב זמני לשמירת התמונה
+                    
                     string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "wallpaper_scary.png");
-
-                    // 2. שמירת התמונה מה-Resources לקובץ (החלף את 'scary_bg' בשם שנתת לתמונה ב-Resources)
                     Properties.Resources.wallpaper_scary.Save(tempPath, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                    // 3. קריאה לפונקציה שמשנה את הרקע בפועל
                     SetWallpaper(tempPath);
                 }
                 catch (Exception ex)

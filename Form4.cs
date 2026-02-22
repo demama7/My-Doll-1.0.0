@@ -31,6 +31,8 @@ namespace appV1
         {
             InitializeComponent();
 
+            this.KeyPreview = true; 
+            this.KeyDown += Form4_KeyDown;
             // הגדרות חלון למסך מלא
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
@@ -61,7 +63,7 @@ namespace appV1
 
         private void Form4_Load(object sender, EventArgs e)
         {
-            // פונקציה זו נשמרת כדי למנוע שגיאות Designer
+
         }
 
         private void SetNextCircleTime()
@@ -92,9 +94,18 @@ namespace appV1
             {
                 GameWin();
             }
-
             // רענון המסך
             this.Invalidate();
+        }
+        //דלת סגירה סודית בבדיקת המערכת (לא לשכוח למחוק את זה נועה) למקרה הצורך
+        private void Form4_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Shift && e.KeyCode == Keys.W)
+            {
+                MessageBox.Show("דלת יציאה סודית!");
+                GameWin();
+                e.SuppressKeyPress = true;
+            }
         }
 
         private void UpdateTrianglesAndCheckCollision(Point mousePos)
@@ -122,6 +133,7 @@ namespace appV1
 
                 if (CalculateDistance(mousePos, new PointF(p.X, p.Y + 15)) < 22)
                 {
+
                     GameOver();
                     return;
                 }
@@ -137,6 +149,7 @@ namespace appV1
 
                 if (CalculateDistance(mousePos, new PointF(p.X, p.Y - 15)) < 22)
                 {
+                    
                     GameOver();
                     return;
                 }
@@ -179,6 +192,10 @@ namespace appV1
         private void GameOver()
         {
             gameTimer.Stop();
+            using (FormJumpscare jumpscareWindow = new FormJumpscare())
+            {
+                jumpscareWindow.ShowDialog();
+            }
             System.Threading.Tasks.Task.Run(() => losePlayer.Play());
             MessageBox.Show("הפסדת! נגעת במשולש אדום.\nהניקוד שלך: " + score,
                             "System Warning",

@@ -31,14 +31,11 @@ namespace appV1
         private void EnsureMusicIsPlaying()
         {
             try
-            {
-                // אם ה-SoundPlayer לא הוגדר, נגדיר אותו שוב מהמשאבים
+            {               
                 if (backgroundMusic == null)
                 {
                     backgroundMusic = new SoundPlayer(Properties.Resources.scaryMusic);
-                }
-
-                // הפעלה מחדש (זה עוצר ומפעיל שוב)
+                }              
                 backgroundMusic.PlayLooping();
             }
             catch (Exception ex)
@@ -56,11 +53,11 @@ namespace appV1
                             MessageBoxIcon.Error);
         }
         public int disqualifications = 0;
-        private string playerName = "טיפש"; // ברירת מחדל אם הוא לא הזין שם
+        private string playerName = "טיפש"; 
         private void Form1_Shown(object sender, EventArgs e)
 
         {
-            
+
             string userName = Environment.UserName;
             ScaryMessages.WelcomeMessage(userName);
 
@@ -68,7 +65,6 @@ namespace appV1
             {
                 disqualifications++;
                 ScaryMessages.UpdateDisqualifications(disqualifications);
-                // אם הוא לחץ "לא", אנחנו מעדכנים פסילות (דוגמה)
                 ScaryMessages.Show("כמות פסילות: " + disqualifications);
                 ScaryMessages.Show("ברגע שתגיע ל20 אתה תמות!");
                 ScaryMessages.Show("...");
@@ -79,7 +75,7 @@ namespace appV1
 
             using (Form3 secondForm = new Form3())
             {
-                // הצגת החלון ובדיקה אם המשתמש לחץ על "אישור"
+               
                 if (secondForm.ShowDialog() == DialogResult.OK)
                 {
                     playerName = secondForm.UserName;
@@ -89,7 +85,7 @@ namespace appV1
                     MessageBox.Show("בו נסביר קצת על החוקים", "System Warning", MessageBoxButtons.OK);
                     try
                     {
-                        // נתיב לשולחן העבודה של המשתמש
+                        
                         string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                         string filePath = System.IO.Path.Combine(desktopPath, "rules.txt");
                         string content = $"שלום לך" + " " + playerName + "\n" +
@@ -104,7 +100,7 @@ namespace appV1
                         Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
 
                     }
-                    catch { /* נכשל בשקט כדי לא לעצור את התוכנה */ }
+                    catch {  }
 
                     MessageBox.Show("לאחר שתיקרא את החוקים בו נשחק את המשחק הרשאון שלנו!",
                           "System Warning",
@@ -120,7 +116,7 @@ namespace appV1
                           MessageBoxIcon.Warning);
                 }
             }
-            // פתיחת המשחק
+
             using (Form2 game = new Form2())
             {
                 DialogResult result = game.ShowDialog();
@@ -211,7 +207,7 @@ namespace appV1
 
                     MessageBox.Show("כל הכבוד! הצלחת לנצח את המשחק השני.", "Access Granted", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // יצירת הקבצים (הקוד שלך)
+                   
                     string Path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     string filePath = System.IO.Path.Combine(Path, "game3.txt");
                     string content = $"\n האות השלישית בתוך איפה שאני נימצה היא האות הרשונה בקוד (באנגלית)";
@@ -229,7 +225,7 @@ namespace appV1
 
                     if (!ScaryMessages.fani())
                     {
-                        disqualifications += 3; // הוספת 3 פסילות
+                        disqualifications += 3; 
                         MessageBox.Show("כמות פסילות: " + disqualifications);
                         MessageBox.Show("עכשיו לך תחפש את המשחק הבא במחשב שלך טיפש!");
                         MessageBox.Show("אתה צריך להבין לבד עכשיו!");
@@ -237,7 +233,7 @@ namespace appV1
                 }
                 else
                 {
-                    // אם הוא הפסיד או סגר את החלון
+                  
                     disqualifications++;
                     ScaryMessages.UpdateDisqualifications(this.disqualifications);
                     ScaryMessages.endGames();
@@ -248,17 +244,17 @@ namespace appV1
         {
             if (e.KeyCode == Keys.Enter)
             {
-                // --- התיקון: זה מבטל את צליל ה"דינג" המעצבן של ווינדוס ---
+               
                 e.SuppressKeyPress = true;
 
                 string secretCode = "c171Iseeyou";
 
-                // מומלץ להשתמש ב-Trim() למקרה שהמשתמש הוסיף רווח בטעות
+                
                 if (input1.Text.Trim() == secretCode)
                 {
                     timer1.Stop();
                     ScaryMessages.Show("יפה יפה אז פתרת את כל החידות שלי", MessageBoxIcon.Information);
-                    ScaryMessages.Show("אולי אתה לא כזה טיפש בכל מקרה!");                   
+                    ScaryMessages.Show("אולי אתה לא כזה טיפש בכל מקרה!");
                     ScaryMessages.Show("והפעם באמת כול הכבוד ניצחת אותי!");
                     ScaryMessages.Show("אולי ניפגש שוב בעתיד");
                     ScaryMessages.Show("אז...");
@@ -268,7 +264,7 @@ namespace appV1
                 }
                 else
                 {
-                    // --- אפקט רעידת מסך ---
+                
                     Point originalLocation = this.Location;
                     Random rnd = new Random();
                     for (int i = 0; i < 20; i++)
